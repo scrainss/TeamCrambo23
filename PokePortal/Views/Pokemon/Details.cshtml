@@ -1,0 +1,17 @@
+﻿<!-- Views/Pokemon/Details.cshtml -->
+@model Pokemon
+
+<h2>Pokemon Details</h2>
+
+<dl>
+    <dt>Name:</dt>
+    <dd>@Model.Name</dd>
+
+    <dt>Type:</dt>
+    <dd>@Model.Type1</dd>
+
+    <dt>Level:</dt>
+    <dd>@Model.Level</dd>
+</dl>
+
+@Html.ActionLink("Back to List", "Index")

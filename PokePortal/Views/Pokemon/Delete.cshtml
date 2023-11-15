@@ -1,0 +1,25 @@
+﻿<!-- Views/Pokemon/Delete.cshtml -->
+@model Pokemon
+
+<h2>Delete Pokemon</h2>
+
+<p>Are you sure you want to delete this Pokemon?</p>
+
+<dl>
+    <dt>Name:</dt>
+    <dd>@Model.Name</dd>
+
+    <dt>Type:</dt>
+    <dd>@Model.Type1</dd>
+
+    <dt>Level:</dt>
+    <dd>@Model.Level</dd>
+</dl>
+
+@using (Html.BeginForm("DeleteConfirmed", "Pokemon", new { id = Model.Id }, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <input type="submit" value="Delete" class="btn btn-danger" />
+}
+
+@Html.ActionLink("Back to List", "Index")

@@ -14,5 +14,54 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background-color: #555557;
+    color: #CED7DB;
+}
+
+.site-header {
+    background-color: #798C91;
+}
+
+.site-footer {
+    background-color: #798C91;
+}
+
+.off-white {
+    background-color: #F2F2F2;
+}
+
+.light-gray {
+    background-color: #CED7DB;
+}
+
+.gray {
+    background-color: #B1B1BA;
+}
+
+.dark-gray {
+    background-color: #555557;
+}
+
+.text-off-white {
+    color: #F2F2F2;
+}
+
+.text-light-gray {
+    color: #CED7DB;
+}
+
+.text-gray {
+    color: #B1B1BA;
+}
+
+.text-dark-gray {
+    color: #555557;
+}
+
+.profile-picture {
+    width: 50px;
+    height: 50px;
+    border-radius: 0%;
+    margin-right: auto;
 }
