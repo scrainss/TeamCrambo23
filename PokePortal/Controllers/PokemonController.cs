@@ -73,6 +73,11 @@ namespace PokePortal.Controllers
         public IActionResult Create()
         {
             Pokemon newPokemon = new Pokemon();
+
+            // temp Id for display on the form
+            int tempCount = pokemonStorage.Count;
+            newPokemon.Id = tempCount + 1;
+
             return View(newPokemon);
         }
 
