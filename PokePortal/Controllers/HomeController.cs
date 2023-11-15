@@ -18,6 +18,21 @@ namespace PokePortal.Controllers
             return View();
         }
 
+        public IActionResult Add()
+        {
+            return View();
+        }
+
+        public IActionResult Trade()
+        {
+            return View();
+        }
+
+        public IActionResult Storage()
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();
