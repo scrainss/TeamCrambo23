@@ -5,7 +5,40 @@ namespace PokePortal.Controllers
 {
     public class PokemonController : Controller
     {
-        private List<Pokemon> pokemonStorage = new List<Pokemon>();
+        private static List<Pokemon> pokemonStorage = new List<Pokemon>();
+
+        public PokemonController()
+        {
+            if (pokemonStorage.Count == 0)
+            {
+                // sample pokemon for testing
+                pokemonStorage.Add(new Pokemon
+                {
+                    Id = 0,
+                    PokemonId = 25,
+                    Name = "Pickles",
+                    Species = "Pikachu",
+                    Type1 = "Electric",
+                    Type2 = null,
+                    Level = 32,
+                    TrainerId = 1,
+                    IsShiny = false
+                });
+
+                pokemonStorage.Add(new Pokemon
+                {
+                    Id = 1,
+                    PokemonId = 1,
+                    Name = "Bubba",
+                    Species = "Bulbasaur",
+                    Type1 = "Grass",
+                    Type2 = "Poison",
+                    Level = 5,
+                    TrainerId = 67,
+                    IsShiny = true
+                });
+            }
+        }
 
         // Action for displaying a list of all pokemon
         public IActionResult Index()
@@ -28,7 +61,8 @@ namespace PokePortal.Controllers
         // Action for displaying a form for adding a new pokemon
         public IActionResult Create()
         {
-            return View();
+            Pokemon newPokemon = new Pokemon();
+            return View(newPokemon);
         }
 
         // Action to handle form submission and adding a new pokemon

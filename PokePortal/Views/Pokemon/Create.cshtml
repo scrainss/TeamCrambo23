@@ -1,32 +1,68 @@
 ﻿<!-- Views/Pokemon/Create.cshtml -->
 @model Pokemon
 
-<h2>Create Pokemon</h2>
+<h2>Add Pokémon</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Create", "Pokemon", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
     <div class="form-group">
+        @Html.LabelFor(model => model.PokemonId)
+        @Html.TextBoxFor(model => model.PokemonId, new { @class = "form-control", type = "number", min = 1, max = 100 })
+        @Html.ValidationMessageFor(model => model.PokemonId, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
         @Html.LabelFor(model => model.Name)
-        @Html.EditorFor(model => model.Name)
-        @Html.ValidationMessageFor(model => model.Name)
+        @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Species)
+        @Html.TextBoxFor(model => model.Species, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Species, "", new { @class = "text-danger" })
     </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.Type1)
-        @Html.EditorFor(model => model.Type1)
-        @Html.ValidationMessageFor(model => model.Type1)
+        @Html.TextBoxFor(model => model.Type1, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Type1, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Type2)
+        @Html.TextBoxFor(model => model.Type2, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Type2, "", new { @class = "text-danger" })
     </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.Level)
-        @Html.EditorFor(model => model.Level)
+        @Html.TextBoxFor(model => model.Level, new { @class = "form-control", type = "number", min = 1, max = 100 })
+        @Html.ValidationMessageFor(model => model.Level, "", new { @class = "text-danger" })
+    </div>
+
+    @* <div class="form-group">
+        @Html.LabelFor(model => model.Level)
+        @Html.DropDownListFor(model => model.Level, new SelectList(Model.AvailableLevels), new { @class = "form-control" })
         @Html.ValidationMessageFor(model => model.Level)
+    </div> *@
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.TrainerId)
+        @Html.TextBoxFor(model => model.TrainerId, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.TrainerId, "", new { @class = "text-danger" })
     </div>
 
     <div class="form-group">
-        <input type="submit" value="Create" class="btn btn-primary" />
+        @Html.LabelFor(model => model.IsShiny)
+        @Html.CheckBoxFor(model => model.IsShiny)
+        @Html.ValidationMessageFor(model => model.IsShiny)
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Add Pokémon" class="btn btn-primary" />
     </div>
 }
 

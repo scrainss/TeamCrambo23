@@ -3,11 +3,13 @@
 
 <h2>Pokemon List</h2>
 
-<ul>
-    @foreach (var pokemon in Model)
-    {
+
+@foreach (var pokemon in Model)
+{
+    <div class="poke-list">
         <li>
             @Html.ActionLink(pokemon.Name, "Details", new { id = pokemon.Id })
         </li>
-    }
-</ul>
+    </div>
+}
+
