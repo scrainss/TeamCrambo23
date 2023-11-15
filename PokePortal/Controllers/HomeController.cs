@@ -33,6 +33,11 @@ namespace PokePortal.Controllers
             return View();
         }
 
+        public IActionResult Withdraw()
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();
