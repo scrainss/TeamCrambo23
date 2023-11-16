@@ -33,6 +33,8 @@ namespace PokePortal.Models
 
         public bool IsShiny { get; set; }
 
+        public string? SpriteUrl { get; set; }
+
 
     }
 }

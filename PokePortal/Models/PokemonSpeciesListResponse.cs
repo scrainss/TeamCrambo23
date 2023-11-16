@@ -1,6 +1,4 @@
-﻿using static PokePortal.Models.PokemonApiResponses;
-
-namespace PokePortal.Models
+﻿namespace PokePortal.Models
 {
     public class PokemonSpeciesListResponse
     {

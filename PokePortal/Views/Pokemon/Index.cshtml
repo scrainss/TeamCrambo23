@@ -1,15 +1,84 @@
 ﻿<!-- Views/Pokemon/Index.cshtml -->
 @model List<Pokemon>
 
-<h1>Pokemon List</h1>
+<div class="text-center">
+    <h1>Pokemon List</h1>
+</div>
 
+<div class="poke-list">
+    @foreach (var pokemon in Model)
+    {
+        <a href="@Url.Action("Details", "Pokemon", new { id = pokemon.Id })" class="poke-item">
+            <img src="@pokemon.SpriteUrl" alt="Sprite" class="poke-image" />
+            <div class="poke-details">
+                <div class="details-row">
+                    <div class="poke-nickname">@pokemon.Nickname</div>
+                </div>
+                <div class="details-row">
+                    <div class="pokemon-species">@pokemon.Species</div>
+                </div>
+                <div class="details-row">
+                    <div class="pokemon-id">PID: @pokemon.PokemonId</div>
+                </div>
+                <div class="details-row">
+                    <div class="internal-id">ID: @pokemon.Id</div>
+                </div>
+                <div class="details-row">
+                    <div class="symbol">➔</div>
+                </div>
+            </div>
+        </a>
+    }
+</div>
 
-@foreach (var pokemon in Model)
-{
-    <div class="poke-list">
-        <li>
-            @Html.ActionLink(pokemon.Nickname, "Details", new { id = pokemon.Id })
-        </li>
-    </div>
-}
+<style>
+    .poke-list {
+        display: flex;
+        flex-direction: column;
+    }
 
+    .poke-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .poke-item:hover {
+        background-color: #f0f0f0;
+        text-decoration: none;
+    }
+
+    .poke-item:visited {
+        color: inherit;
+    }
+
+    .poke-image {
+        width: 100px;
+        height: 100px;
+        margin-right: 10px;
+    }
+
+    .poke-details {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: row;
+    }
+
+    .details-row {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .poke-nickname,
+    .pokemon-species,
+    .pokemon-id,
+    .internal-id {
+        font-size: 18px;
+    }
+</style>

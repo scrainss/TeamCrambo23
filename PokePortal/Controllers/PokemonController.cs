@@ -47,8 +47,21 @@ namespace PokePortal.Controllers
         }
 
         // Action for displaying a list of all pokemon
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            foreach (var pokemon in pokemonStorage)
+            {
+                PokemonSpriteResponse spriteResponse = await pokeApiService.GetPokemonSprites(pokemon.Species);
+
+                if (pokemon.IsShiny)
+                {
+                    pokemon.SpriteUrl = spriteResponse.Shiny;
+                }
+                else
+                {
+                    pokemon.SpriteUrl = spriteResponse.Normal;
+                }
+            }
             return View(pokemonStorage);
         }
 

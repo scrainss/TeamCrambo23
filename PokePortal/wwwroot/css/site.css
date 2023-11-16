@@ -33,6 +33,11 @@ body {
     background: linear-gradient(to right, #798C91, #B1B1BA);
 }
 
+.footer-deco {
+    text-decoration: none;
+    color: inherit;
+}
+
 .blue-gray {
     background-color: #798C91;
 }
