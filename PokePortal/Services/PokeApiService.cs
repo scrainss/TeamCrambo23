@@ -31,5 +31,33 @@ namespace PokePortal.Services
 
             return spriteResponse;
         }
+
+        public async Task<PokemonDetailsResponse> GetPokemonDetailsAsync(int pokemonId)
+        {
+            try
+            {
+                var response = await httpClient.GetAsync($"pokemon/{pokemonId}/");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+
+                    // You can use Newtonsoft.Json.JsonConvert or System.Text.Json.JsonSerializer for deserialization
+                    var pokemonDetails = Newtonsoft.Json.JsonConvert.DeserializeObject<PokemonDetailsResponse>(content);
+
+                    return pokemonDetails;
+                }
+                else
+                {
+                    // Handle the error, perhaps by logging or throwing an exception
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions (e.g., network issues)
+                return null;
+            }
+        }
     }
 }

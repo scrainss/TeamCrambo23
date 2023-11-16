@@ -12,7 +12,7 @@ namespace PokePortal.Models
         public int PokemonId { get; set; }
 
         [Required(ErrorMessage = "Name is required.")]
-        public string Name { get; set; }
+        public string Nickname { get; set; }
 
         [Required(ErrorMessage = "Species is required.")]
         public string Species { get; set; }
