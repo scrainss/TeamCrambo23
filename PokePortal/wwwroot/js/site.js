@@ -12,24 +12,6 @@
 });
 
 $(document).ready(function () {
-    // Initialize the dropdown
-    $('#Species').select2({
-        placeholder: 'Select a Pokemon', // Set a placeholder text
-        allowClear: true, // Allow clearing the selection
-        minimumInputLength: 1, // Minimum number of characters before showing results
-        ajax: {
-            url: '/Pokemon/GetPokemonSpecies', // Your API endpoint to get Pokemon species
-            dataType: 'json',
-            delay: 250,
-            processResults: function (data) {
-                return {
-                    results: data
-                };
-            },
-            cache: true
-        }
-    });
-
     $("#Species").change(function () {
         var selectedSpecies = $(this).val();
         // Make AJAX request

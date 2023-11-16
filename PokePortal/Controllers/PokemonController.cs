@@ -86,7 +86,7 @@ namespace PokePortal.Controllers
 
         // Action to handle form submission and adding a new pokemon
         [HttpPost]
-        public IActionResult Create(Pokemon pokemon) 
+        public async Task<IActionResult> Create(Pokemon pokemon) 
         {
             if (ModelState.IsValid)
             {
@@ -99,7 +99,7 @@ namespace PokePortal.Controllers
             }
 
             // If model is not valid return to create form
-            ViewBag.AvailableSpecies = GetFirst150Pokemon();
+            ViewBag.AvailableSpecies = await GetFirst150Pokemon();
             return View(pokemon);
         }
 

@@ -30,23 +30,11 @@
                     @Html.ValidationMessageFor(model => model.Nickname, "", new { @class = "text-danger" })
                 </div>
 
-                @{
-                    var species = ViewBag.AvailableSpecies;
-                    if (species != null)
-                    {
-                        // Render the dropdown list
-                        <div class="form-group species">
-                            @Html.LabelFor(model => model.Species)
-                            @Html.DropDownListFor(model => model.Species, new SelectList(species, "Value", "Text"), new { @class = "form-control", id = "Species" })
-                            @Html.ValidationMessageFor(model => model.Species, "", new {@class = "text-danger" })
-                        </div>
-                    }
-                    else
-                    {
-                        <p>Error: Available species is null.</p>
-                    }
-                }
-
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Species)
+                    @Html.DropDownListFor(model => model.Species, new SelectList(ViewBag.AvailableSpecies), new { @class = "form-control" })
+                </div>
+                    
                 <div class="form-group type-group">
                     @Html.TextBoxFor(model => model.Type1, new { @class = "form-control", placeholder = "Type 1", @readonly = "readonly" })
                     @Html.ValidationMessageFor(model => model.Type1, "", new { @class = "text-danger" })
