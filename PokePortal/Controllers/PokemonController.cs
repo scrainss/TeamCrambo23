@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using PokePortal.Models;
 using PokePortal.Services;
 
@@ -19,7 +20,7 @@ namespace PokePortal.Controllers
                 {
                     Id = 0,
                     PokemonId = 25,
-                    Name = "Pickles",
+                    Nickname = "Pickles",
                     Species = "Pikachu",
                     Type1 = "Electric",
                     Type2 = null,
@@ -32,7 +33,7 @@ namespace PokePortal.Controllers
                 {
                     Id = 1,
                     PokemonId = 1,
-                    Name = "Bubba",
+                    Nickname = "Bubba",
                     Species = "Bulbasaur",
                     Type1 = "Grass",
                     Type2 = "Poison",
@@ -70,7 +71,7 @@ namespace PokePortal.Controllers
         }
 
         // Action for displaying a form for adding a new pokemon
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             Pokemon newPokemon = new Pokemon();
 
@@ -78,12 +79,14 @@ namespace PokePortal.Controllers
             int tempCount = pokemonStorage.Count;
             newPokemon.Id = tempCount + 1;
 
+            ViewBag.AvailableSpecies = await GetFirst150Pokemon();
+
             return View(newPokemon);
         }
 
         // Action to handle form submission and adding a new pokemon
         [HttpPost]
-        public IActionResult Create(Pokemon pokemon) 
+        public async Task<IActionResult> Create(Pokemon pokemon) 
         {
             if (ModelState.IsValid)
             {
@@ -96,7 +99,32 @@ namespace PokePortal.Controllers
             }
 
             // If model is not valid return to create form
+            ViewBag.AvailableSpecies = await GetFirst150Pokemon();
             return View(pokemon);
+        }
+
+        public async Task<List<string>> GetFirst150Pokemon()
+        {
+            List<string> speciesList = new List<string>();
+
+            using (HttpClient client = new HttpClient())
+            {
+                string apiUrl = "https://pokeapi.co/api/v2/pokemon-species?limit=150";
+                HttpResponseMessage response = await client.GetAsync(apiUrl);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string content = await response.Content.ReadAsStringAsync();
+                    var result = JsonConvert.DeserializeObject<PokemonSpeciesListResponse>(content);
+
+                    foreach (var species in result.Results)
+                    {
+                        speciesList.Add(species.Name);
+                    }
+                }
+            }
+
+            return speciesList;
         }
 
         //// Action to display a form for editing an existing Pokemon
