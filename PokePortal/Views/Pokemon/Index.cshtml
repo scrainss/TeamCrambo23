@@ -4,15 +4,25 @@
 <div class="text-center">
     <h1>Pokemon List</h1>
 </div>
-
+<div>
 <!-- Added the search function-->
-<form asp-controller="Pokemon" asp-action="Index" method="get">
-    <p>
-        Search: <input type="text" name="id" />
-        <input type="submit" value="Search" />
-    </p>
-</form>
+    <form asp-controller="Pokemon" asp-action="Index" method="get">
+        <p>
+            Search: <input type="text" name="id" />
+            <input type="submit" value="Search" />
+        </p>
+    </form>
 
+<!-- Added the sort low to high function-->
+    <form asp-controller="Pokemon" asp-action="SortPokemonLow" method="post">
+            <button type="submit">Level: Lowest to Highest</button>
+    </form>
+
+<!-- Added the sort high to low function-->
+    <form asp-controller="Pokemon" asp-action="SortPokemonHigh" method="post">
+        <button type="submit">Level: Highest to Lowest</button>
+    </form>
+</div>
 <div class="poke-list">
     @foreach (var pokemon in Model)
     {

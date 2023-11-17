@@ -185,6 +185,105 @@ namespace PokePortal.Controllers
             return RedirectToAction("Index");
         }
 
+        //Method to sort lowest to highest
+        private void SortPokemonByLevelLow()
+        {
+            pokemonStorage.Sort((p1, p2) => p1.Level.CompareTo(p2.Level));
+        }
+
+        //Method to sort highest to lowest
+        private void SortPokemonByLevelHigh()
+        {
+            pokemonStorage.Sort((p1, p2) => p2.Level.CompareTo(p1.Level));
+        }
+
+        //Action to sort Pokemon lowest to highest
+        public async Task<IActionResult> SortPokemon(string id)
+        {
+            SortPokemonByLevelLow();
+
+            foreach (var pokemon in pokemonStorage)
+            {
+                PokemonSpriteResponse spriteResponse = await pokeApiService.GetPokemonSprites(pokemon.Species);
+
+                if (pokemon.IsShiny)
+                {
+                    pokemon.SpriteUrl = spriteResponse.Shiny;
+                }
+                else
+                {
+                    pokemon.SpriteUrl = spriteResponse.Normal;
+                }
+            }
+
+            List<Pokemon> pokemonList = new List<Pokemon>();
+
+            if (!String.IsNullOrEmpty(id))
+            {
+                foreach (var pokemon in pokemonStorage)
+                {
+                    if (pokemon.Species.ToUpper().Contains(id.ToUpper()) || pokemon.Nickname.ToUpper().Contains(id.ToUpper()))
+                    {
+                        pokemonList.Add(pokemon);
+                    }
+                }
+
+                return View(pokemonList);
+            }
+            return View(pokemonStorage);
+        }
+
+        [HttpPost]
+        public IActionResult SortPokemonLow()
+        {
+            SortPokemonByLevelLow();
+            return RedirectToAction("Index");
+        }
+
+        //Action to sort Pokemon 
+        public async Task<IActionResult> SortPokemonHigh(string id)
+        {
+            SortPokemonByLevelLow();
+
+            foreach (var pokemon in pokemonStorage)
+            {
+                PokemonSpriteResponse spriteResponse = await pokeApiService.GetPokemonSprites(pokemon.Species);
+
+                if (pokemon.IsShiny)
+                {
+                    pokemon.SpriteUrl = spriteResponse.Shiny;
+                }
+                else
+                {
+                    pokemon.SpriteUrl = spriteResponse.Normal;
+                }
+            }
+
+            List<Pokemon> pokemonList = new List<Pokemon>();
+
+            if (!String.IsNullOrEmpty(id))
+            {
+                foreach (var pokemon in pokemonStorage)
+                {
+                    if (pokemon.Species.ToUpper().Contains(id.ToUpper()) || pokemon.Nickname.ToUpper().Contains(id.ToUpper()))
+                    {
+                        pokemonList.Add(pokemon);
+                    }
+                }
+
+                return View(pokemonList);
+            }
+            return View(pokemonStorage);
+        }
+
+        [HttpPost]
+        public IActionResult SortPokemonHigh()
+        {
+            SortPokemonByLevelHigh();
+            return RedirectToAction("Index");
+        }
+
+
         //// Action to display a form for editing an existing Pokemon
         //public IActionResult Edit(int id)
         //{
