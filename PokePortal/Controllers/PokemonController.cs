@@ -140,6 +140,35 @@ namespace PokePortal.Controllers
             return speciesList;
         }
 
+        // Action to handle withdrawing a Pokemon
+        public IActionResult Withdraw(int id)
+        {
+            Pokemon pokemon = pokemonStorage.FirstOrDefault(p => p.Id == id);
+            if (pokemon == null)
+            {
+                return NotFound(); // Pokemon not found
+            }
+
+            return View(pokemon);
+        }
+
+        // Action to handle the withdrawal confirmation
+        [HttpPost, ActionName("Withdraw")]
+        public IActionResult WithdrawConfirmed(int id)
+        {
+            Pokemon pokemon = pokemonStorage.FirstOrDefault(p => p.Id == id);
+            if (pokemon == null)
+            {
+                return NotFound(); // Pokemon not found
+            }
+
+            // Remove the Pokemon from your storage system
+            pokemonStorage.Remove(pokemon);
+
+            // Redirect to the Pokemon list after successful deletion
+            return RedirectToAction("Index");
+        }
+
         //// Action to display a form for editing an existing Pokemon
         //public IActionResult Edit(int id)
         //{
@@ -181,33 +210,6 @@ namespace PokePortal.Controllers
         //    return View(updatedPokemon);
         //}
 
-        //// Action to handle deleting a Pokemon
-        //public IActionResult Delete(int id)
-        //{
-        //    Pokemon pokemon = pokemonStorage.FirstOrDefault(p => p.Id == id);
-        //    if (pokemon == null)
-        //    {
-        //        return NotFound(); // Pokemon not found
-        //    }
 
-        //    return View(pokemon);
-        //}
-
-        //// Action to handle the deletion confirmation
-        //[HttpPost, ActionName("Delete")]
-        //public IActionResult DeleteConfirmed(int id)
-        //{
-        //    Pokemon pokemon = pokemonStorage.FirstOrDefault(p => p.Id == id);
-        //    if (pokemon == null)
-        //    {
-        //        return NotFound(); // Pokemon not found
-        //    }
-
-        //    // Remove the Pokemon from your storage system
-        //    pokemonStorage.Remove(pokemon);
-
-        //    // Redirect to the Pokemon list after successful deletion
-        //    return RedirectToAction("Index");
-        //}
     }
 }
