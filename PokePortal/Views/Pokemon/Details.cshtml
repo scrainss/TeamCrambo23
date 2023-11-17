@@ -43,4 +43,15 @@ else
     <dd>@Model.Id</dd>
 </dl>
 
+    @*<form method="post" action="@Url.Action("Withdraw", "Pokemon")">
+        <input type="hidden" name="Id" value="@Model.Id" />
+        <button type="submit">Withdraw Pokemon</button>
+    </form>*@
+
+@using (Html.BeginForm("Withdraw", "Pokemon", new { id = Model.Id }, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <input type="submit" value="Withdraw" class="btn btn-danger" />
+}
+
 @Html.ActionLink("Back to List", "Index")
