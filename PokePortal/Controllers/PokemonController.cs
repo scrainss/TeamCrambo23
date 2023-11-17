@@ -47,7 +47,8 @@ namespace PokePortal.Controllers
         }
 
         // Action for displaying a list of all pokemon
-        public async Task<IActionResult> Index()
+        // Uses the id parameter to search for pokemon
+        public async Task<IActionResult> Index(string id)
         {
             foreach (var pokemon in pokemonStorage)
             {
@@ -61,6 +62,21 @@ namespace PokePortal.Controllers
                 {
                     pokemon.SpriteUrl = spriteResponse.Normal;
                 }
+            }
+
+            List<Pokemon> pokemonList = new List<Pokemon>();
+
+            if (!String.IsNullOrEmpty(id))
+            {
+                foreach (var pokemon in pokemonStorage)
+                {
+                    if (pokemon.Species.ToUpper().Contains(id.ToUpper()) || pokemon.Nickname.ToUpper().Contains(id.ToUpper()))
+                    { 
+                        pokemonList.Add(pokemon);
+                    }
+                }
+
+                return View(pokemonList);
             }
             return View(pokemonStorage);
         }
