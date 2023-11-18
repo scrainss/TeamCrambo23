@@ -20,11 +20,30 @@ body {
 }
 
 .site-header {
-    background-color: #798C91;
+    background: linear-gradient(to right, #798C91, #B1B1BA);
+    z-index: 1000;
+    font-size: larger;
+}
+
+.site-header .navbar-brand {
+    font-size: xx-large;
 }
 
 .site-footer {
+    background: linear-gradient(to right, #798C91, #B1B1BA);
+}
+
+.footer-deco {
+    text-decoration: none;
+    color: inherit;
+}
+
+.blue-gray {
     background-color: #798C91;
+}
+
+.text-blue-gray {
+    color: #798C91;
 }
 
 .off-white {

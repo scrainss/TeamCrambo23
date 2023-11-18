@@ -1,0 +1,33 @@
+﻿<!-- Views/Pokemon/Delete.cshtml -->
+@model Pokemon
+
+<h2>Withdraw Pokemon</h2>
+
+<p>Are you sure you want to withdraw this Pokemon?</p>
+
+<dl>
+    <dt>Name:</dt>
+    <dd>@Model.Nickname</dd>
+
+    <dt>Type:</dt>
+    <dd>@Model.Type1</dd>
+
+    <dt>Level:</dt>
+    <dd>@Model.Level</dd>
+</dl>
+
+
+    
+@*    <form method="post" action="@Url.Action("Withdraw", "Pokemon")">
+        <input type="hidden" name="Id" value="@Model.Id" />
+        <button type="submit">Withdraw Pokemon</button>
+    </form>
+
+
+@using (Html.BeginForm("WithdrawConfirmed", "Pokemon", new { id = Model.Id }, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <input type="submit" value="Withdraw" class="btn btn-danger" />
+}*@ 
+
+@Html.ActionLink("Back to List", "Index")

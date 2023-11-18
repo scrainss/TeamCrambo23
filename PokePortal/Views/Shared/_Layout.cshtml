@@ -11,40 +11,47 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark site-header box-shadow mb-3">
-            <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg navbar-dark site-header box-shadow mb-5">
+            <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">PokéPortal</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+                    <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Storage</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Pokemon" asp-action="Create">Add Pokémon</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Trade</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Pokemon" asp-action="Index">Storage</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="" asp-controller="Pokemon" asp-action="Trade">Trade</a>
                         </li>
                     </ul>
-                    <partial name="_LoginPartial" />
+                    <div class="d-flex">
+                        <partial name="_LoginPartial" />
+                    </div>
                 </div>
             </div>
         </nav>
     </header>
+
     <div class="container">
         <main role="main" class="pb-3">
-            <div class="container box-shadow m-lg-5 light-gray text-dark-gray">
+            <div class="container-fluid box-shadow light-gray text-dark-gray p-4 rounded">
                 @RenderBody()
             </div>
         </main>
     </div>
 
-    <footer class="footer text-muted site-footer">
-        <div class="container text-light">
-            &copy; 2023 - PokéPortal - <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+    <footer class="footer site-footer text-light box-shadow">
+        <div class="container">
+            &copy; 2023 - PokéPortal - <a class="text-light footer-deco" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

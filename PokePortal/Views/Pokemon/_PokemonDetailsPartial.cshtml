@@ -1,0 +1,14 @@
+﻿<!-- Views/Pokemon/_PokemonDetailsPartial.cshtml -->
+@model Pokemon
+
+<div>
+    <h4>@Model.Nickname</h4>
+    <p>Species: @Model.Species</p>
+    <p>Type 1: @Model.Type1</p>
+    @if (Model.Type2 != null)
+    {
+        <p>Type 2: @Model.Type2</p>
+    }
+    <p>Level: @Model.Level</p>
+    <p>OT: @Model.TrainerId</p>
+</div>

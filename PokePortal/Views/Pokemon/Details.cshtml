@@ -1,17 +1,57 @@
 ﻿<!-- Views/Pokemon/Details.cshtml -->
 @model Pokemon
 
-<h2>Pokemon Details</h2>
+<div class="text-center">
+    <h2>Pokemon Details</h2>
+</div>
+
+@if (Model.IsShiny)
+{
+    <img src="@ViewData["ShinySprite"]" alt="Shiny Sprite" />
+}
+else
+{
+    <img src="@ViewData["NormalSprite"]" alt="Normal Sprite" />
+}
 
 <dl>
-    <dt>Name:</dt>
-    <dd>@Model.Name</dd>
+    <dt>Id:</dt>
+    <dd>@Model.PokemonId</dd>
 
-    <dt>Type:</dt>
+    <dt>Name:</dt>
+    <dd>@Model.Nickname</dd>
+
+    <dt>Species:</dt>
+    <dd>@Model.Species</dd>
+
+    <dt>Type 1:</dt>
     <dd>@Model.Type1</dd>
+
+    <dt>Type 2:</dt>
+    <dd>@Model.Type2</dd>
 
     <dt>Level:</dt>
     <dd>@Model.Level</dd>
+
+    <dt>Trainer Id:</dt>
+    <dd>@Model.TrainerId</dd>
+
+    <dt>Is Shiny?:</dt>
+    <dd>@Model.IsShiny</dd>
+
+    <dt>Internal Id:</dt>
+    <dd>@Model.Id</dd>
 </dl>
 
+    @*<form method="post" action="@Url.Action("Withdraw", "Pokemon")">
+        <input type="hidden" name="Id" value="@Model.Id" />
+        <button type="submit">Withdraw Pokemon</button>
+    </form>*@
+
+@using (Html.BeginForm("Withdraw", "Pokemon", new { id = Model.Id }, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <input type="submit" value="Withdraw" class="btn btn-danger" />
+}
+<br />
 @Html.ActionLink("Back to List", "Index")

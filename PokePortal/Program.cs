@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using PokePortal.Controllers;
 using PokePortal.Data;
+using PokePortal.Services;
 
 namespace PokePortal
 {
@@ -19,6 +21,10 @@ namespace PokePortal
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddControllersWithViews();
+
+            // Add service registrations here
+            builder.Services.AddHttpClient<PokeApiService>();
+            builder.Services.AddTransient<PokemonController>();
 
             var app = builder.Build();
 
