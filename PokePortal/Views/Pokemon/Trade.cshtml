@@ -1,0 +1,141 @@
+﻿<!-- Views/Pokemon/Index.cshtml -->
+@model List<Pokemon>
+
+<div class="text-center">
+    <h1>Trade Pokémon</h1>
+</div>
+
+<div class="container">
+    <div class="row row-cols-4">
+        @foreach (var tradePokemon in Model)
+        {
+            <div class="col">
+                <div class="poke-item" onclick="openTradeModal('@tradePokemon.Id')">
+                    <img src="@tradePokemon.SpriteUrl" alt="Sprite" class="poke-image" />
+                    <div class="poke-details">
+                        <div class="poke-species">@tradePokemon.Species</div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<!-- Modal for Trade details -->
+<div class="modal fade" id="tradeModal" tabindex="-1" role="dialog" aria-labelledby="tradeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="tradeModalLabel">Trade Pokémon</h5>
+            </div>
+            <div class="modal-body">
+                <!-- Trade details will be loaded here using AJAX -->
+                <div id="tradeDetailsSection"></div>
+                <div class="trade-divider">
+                    <p>Trade with: </p>
+                </div>
+                <!-- Storage Pokemon details will be loaded here using AJAX -->
+                <div id="storagePokemonDetailsSection"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="confirmTrade()">Trade</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    .poke-list {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .poke-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+        color: inherit;
+    }
+
+        .poke-item:hover {
+            background-color: #f0f0f0;
+            text-decoration: none;
+        }
+
+        .poke-item:visited {
+            color: inherit;
+        }
+
+    .poke-image {
+        width: 100px;
+        height: 100px;
+        margin-right: 10px;
+    }
+
+    .poke-details {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: row;
+    }
+
+    .details-row {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .poke-nickname,
+    .pokemon-species,
+    .pokemon-id,
+    .internal-id {
+        font-size: 18px;
+    }
+
+    .trade-divider {
+        text-align: center;
+    }
+</style>
+
+@section Scripts {
+    <script>
+        // Function to open the modal with Trade details
+        function openTradeModal(id) {
+            $.ajax({
+                url: '@Url.Action("GetTradeDetails", "Pokemon")/' + id,
+                type: 'GET',
+                success: function (tradeData) {
+                    // Load trade details
+                    $('#tradeDetailsSection').html(tradeData);
+
+                    // Load storage Pokemon details
+                    $.ajax({
+                        url: '@Url.Action("GetRandomStoragePokemon", "Pokemon")',
+                        type: 'GET',
+                        success: function (storageData) {
+                            $('#storagePokemonDetailsSection').html(storageData);
+                            // Show the modal after loading both sections
+                            $('#tradeModal').modal('show');
+                        },
+                        error: function () {
+                            alert('Error fetching Storage Pokemon details.');
+                        }
+                    });
+                },
+                error: function () {
+                    alert('Error fetching Trade details.');
+                }
+            });
+        }
+
+        function confirmTrade() {
+            // Add logic for confirming the trade
+            $('#tradeModal').modal('hide');
+        }
+    </script>
+}
