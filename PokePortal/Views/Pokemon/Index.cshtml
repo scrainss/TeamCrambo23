@@ -13,6 +13,41 @@
     </p>
 </form>
 
+@*Filtering by type*@
+<select id="typeFilter" onchange="filterPokemon()">
+    <option value="all">All Types</option>
+    <option value="dragon">Dragon</option>
+    <option value="electric">Electric</option>
+    <option value="fire">Fire</option>
+    <option value="flying">Flying</option>
+    <option value="grass">Grass</option>
+    <option value="poison">Poison</option>
+    <option value="psychic">Psychic</option>
+    <option value="water">Water</option>
+</select>
+
+<script>
+    function filterPokemon() {
+        var nameFilter = document.getElementById('nameFilter').value.toLowerCase();
+        var typeFilter = document.getElementById('typeFilter').value;
+
+        var pokemons = document.getElementsByClassName('pokemon');
+
+        for (var i = 0; i < pokemons.length; i++) {
+            var pokemonType1 = pokemons[i].getAttribute('data-type1');
+            var pokemonType2 = pokemons[i].getAttribute('data-type2');
+
+            var typeMatch = typeFilter === 'all' || pokemonType1 === typeFilter || pokemonType2 === typeFilter;
+
+            if (typeMatch) {
+                pokemons[i].style.display = '';
+            } else {
+                pokemons[i].style.display = 'none';
+            }
+        }
+    }
+</script>
+
 <div class="poke-list">
     @foreach (var pokemon in Model)
     {
