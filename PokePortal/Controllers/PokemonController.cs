@@ -313,6 +313,18 @@ namespace PokePortal.Controllers
             SortPokemonByLevelLow();
 
             foreach (var pokemon in pokemonStorage)
+            {
+                PokemonSpriteResponse spriteResponse = await pokeApiService.GetPokemonSprites(pokemon.Species);
+
+                if (pokemon.IsShiny)
+                {
+                    pokemon.SpriteUrl = spriteResponse.Shiny;
+                }
+                else
+                {
+                    pokemon.SpriteUrl = spriteResponse.Normal;
+                }
+            }
             
             List<Pokemon> pokemonList = new List<Pokemon>();
 
