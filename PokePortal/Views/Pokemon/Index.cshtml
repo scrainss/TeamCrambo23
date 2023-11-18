@@ -23,6 +23,7 @@
         <button type="submit">Level: Highest to Lowest</button>
     </form>
 </div>
+<br />
 @*Filtering by type*@
 <select id="typeFilter" onchange="filterPokemon()">
     <option value="all">All Types</option>
@@ -36,7 +37,7 @@
     <option value="water">Water</option>
 </select>
 
-<script>
+@*<script>
     function filterPokemon() {
         var nameFilter = document.getElementById('nameFilter').value.toLowerCase();
         var typeFilter = document.getElementById('typeFilter').value;
@@ -54,6 +55,23 @@
             } else {
                 pokemons[i].style.display = 'none';
             }
+        }
+    }
+</script>*@
+
+<script>
+    function filterPokemon() {
+        var typeFilter = document.getElementById('typeFilter').value;
+
+        var pokemons = document.getElementsByClassName('pokemon');
+
+        for (var i = 0; i < pokemons.length; i++) {
+            var pokemonType1 = pokemons[i].getAttribute('data-type1');
+            var pokemonType2 = pokemons[i].getAttribute('data-type2');
+
+            var typeMatch = typeFilter === 'all' || pokemonType1 === typeFilter || pokemonType2 === typeFilter;
+
+            pokemons[i].style.display = typeMatch ? '' : 'none';
         }
     }
 </script>
