@@ -9,6 +9,10 @@ namespace PokePortal.Controllers
     {
         private static List<Pokemon> pokemonStorage = new List<Pokemon>();
 
+        private static List<Pokemon> pokemonWithdraw = new List<Pokemon>();
+
+        private static List<Pokemon> pokemonTrade = new List<Pokemon>();
+
         private readonly PokeApiService pokeApiService;
 
         public PokemonController(PokeApiService pokeApiService)
@@ -23,7 +27,6 @@ namespace PokePortal.Controllers
                     Nickname = "Pickles",
                     Species = "Pikachu",
                     Type1 = "Electric",
-                    Type2 = null,
                     Level = 32,
                     TrainerId = 1,
                     IsShiny = false
@@ -40,6 +43,68 @@ namespace PokePortal.Controllers
                     Level = 5,
                     TrainerId = 67,
                     IsShiny = true
+                });
+
+                // sample pokemon for trading
+                pokemonTrade.Add(new Pokemon
+                {
+                    Id = 0,
+                    PokemonId = 54,
+                    Nickname = "Ducky",
+                    Species = "Psyduck",
+                    Type1 = "Water",
+                    Level = 17,
+                    TrainerId = 342,
+                    IsShiny = false
+                });
+
+                pokemonTrade.Add(new Pokemon
+                {
+                    Id = 1,
+                    PokemonId = 61,
+                    Nickname = "Big Man",
+                    Species = "Poliwhirl",
+                    Type1 = "Water",
+                    Level = 31,
+                    TrainerId = 11176,
+                    IsShiny = false
+                });
+
+                pokemonTrade.Add(new Pokemon
+                {
+                    Id = 2,
+                    PokemonId = 74,
+                    Nickname = "The Dude",
+                    Species = "Geodude",
+                    Type1 = "Rock",
+                    Type2 = "Ground",
+                    Level = 12,
+                    TrainerId = 886,
+                    IsShiny = false
+                });
+
+                pokemonTrade.Add(new Pokemon
+                {
+                    Id = 3,
+                    PokemonId = 19,
+                    Nickname = "Ratticus",
+                    Species = "Rattata",
+                    Type1 = "Normal",
+                    Level = 9,
+                    TrainerId = 2820,
+                    IsShiny = true
+                });
+
+                pokemonTrade.Add(new Pokemon
+                {
+                    Id = 4,
+                    PokemonId = 4,
+                    Nickname = "Johnny Cash",
+                    Species = "Charmander",
+                    Type1 = "Fire",
+                    Level = 10,
+                    TrainerId = 101,
+                    IsShiny = false
                 });
             }
 
@@ -183,6 +248,51 @@ namespace PokePortal.Controllers
 
             // Redirect to the Pokemon list after successful deletion
             return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> Trade()
+        {
+            foreach (var pokemon in pokemonTrade)
+            {
+                PokemonSpriteResponse spriteResponse = await pokeApiService.GetPokemonSprites(pokemon.Species);
+
+                if (pokemon.IsShiny)
+                {
+                    pokemon.SpriteUrl = spriteResponse.Shiny;
+                }
+                else
+                {
+                    pokemon.SpriteUrl = spriteResponse.Normal;
+                }
+            }
+
+            return View(pokemonTrade);
+        }
+
+        public IActionResult GetTradeDetails(int id)
+        {
+            Pokemon pokemon = pokemonTrade.FirstOrDefault(x => x.Id == id);
+
+            if (pokemon == null)
+            {
+                return NotFound();
+            }
+
+            return PartialView("_PokemonDetailsPartial", pokemon);
+        }
+
+        public IActionResult GetRandomStoragePokemon()
+        {
+            if (pokemonStorage.Count == 0)
+            {
+                return NotFound("User has no pokemon to trade with.");
+            }
+
+            Random random = new Random();
+            int randomIndex = random.Next(0, pokemonStorage.Count);
+            Pokemon pokemon = pokemonStorage[randomIndex];
+
+            return PartialView("_RandomPokemonDetails", pokemon);
         }
 
         //// Action to display a form for editing an existing Pokemon
